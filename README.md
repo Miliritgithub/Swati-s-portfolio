@@ -3,12 +3,23 @@
 A Spider-Man themed personal portfolio website built with Next.js, showcasing my projects, skills, and experience as a Full-Stack Developer.
 
 🔗 **Live Site:** [swati-s-portfolio-beta.vercel.app](https://swati-s-portfolio-beta.vercel.app)
+📄 **Resume:** [Swati_Mukherjee_FullStack.pdf](./Swati_Mukherjee_FullStack.pdf)
+
+---
+
+## 📸 Preview
+
+The hero section features a mask-reveal effect — the Spider-Man mask morphs to reveal the developer underneath.
+
+![Hero — Mask](./public/images/hero-preview-1.png)
+![Hero — Reveal](./public/images/hero-preview-2.png)
 
 ---
 
 ## ✨ Features
 
 - 🕸️ Spider-Man inspired UI with animated web backgrounds and hanging character illustrations
+- 🎭 Signature hero mask-reveal transition (mask morphs into a personalized illustration)
 - 🎬 Smooth scroll-triggered animations powered by **GSAP**
 - 📱 Fully responsive design across mobile, tablet, and desktop
 - 📩 Working contact form (powered by **Web3Forms**, no backend required)
@@ -26,6 +37,18 @@ A Spider-Man themed personal portfolio website built with Next.js, showcasing my
 | Animation | GSAP + ScrollTrigger |
 | Forms | Web3Forms API |
 | Deployment | Vercel |
+
+---
+
+## 🚀 Featured Projects
+
+A few projects highlighted on this portfolio:
+
+- **Bus Service Booking System** — A full-stack booking platform for managing bus routes, seats, and reservations.
+- **ZapFlow** — A workflow automation tool for streamlining repetitive tasks.
+- **AI Interviewer** — An AI-powered mock interview platform for practicing technical and behavioral interviews.
+
+> 📌 *Update this section with links to each project's live demo/repo as they become available.*
 
 ---
 
@@ -103,6 +126,8 @@ This project is deployed on **Vercel**. Any push to the `main` branch automatica
 Full-Stack Developer | B.Tech in Information Technology
 
 Skilled in React.js, Next.js, TypeScript, Node.js, PostgreSQL, MongoDB, and building full-stack, AI-powered applications.
+
+📄 [View My Resume](./Swati_Mukherjee_FullStack.pdf)
 
 ---
 
