@@ -23,7 +23,9 @@ export default function ContactSection() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const WEB3FORMS_ACCESS_KEY = "974df02b-03a4-4895-8581-a817650f04d0";
+  
+  const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+  console.log("My Key: ", WEB3FORMS_ACCESS_KEY);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
