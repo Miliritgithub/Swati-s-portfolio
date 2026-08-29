@@ -17,6 +17,13 @@ export default function ContactSection() {
   const cardRef = useRef<HTMLDivElement>(null);
   const hangingRef = useRef<HTMLDivElement>(null);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const WEB3FORMS_ACCESS_KEY = "974df02b-03a4-4895-8581-a817650f04d0";
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -123,10 +130,40 @@ export default function ContactSection() {
           </div>
         ) : (
           <form
-            onSubmit={(event) => {
+            onSubmit={async (event) => {
               event.preventDefault();
-              setSent(true);
-              setTimeout(() => setSent(false), 4000);
+              setSending(true);
+              setError(false);
+              try {
+                const response = await fetch(
+                  "https://api.web3forms.com/submit",
+                  {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      access_key: WEB3FORMS_ACCESS_KEY,
+                      name,
+                      email,
+                      message,
+                      subject: `New portfolio message from ${name}`,
+                    }),
+                  },
+                );
+                const result = await response.json();
+                if (result.success) {
+                  setSent(true);
+                  setName("");
+                  setEmail("");
+                  setMessage("");
+                  setTimeout(() => setSent(false), 4000);
+                } else {
+                  setError(true);
+                }
+              } catch {
+                setError(true);
+              } finally {
+                setSending(false);
+              }
             }}
             className="flex flex-col gap-5"
           >
@@ -138,6 +175,8 @@ export default function ContactSection() {
                 <input
                   required
                   type="text"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                   placeholder="Peter Parker"
                   className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#a31515] focus:ring-1 focus:ring-[#a31515] transition-all"
                 />
@@ -149,6 +188,8 @@ export default function ContactSection() {
                 <input
                   required
                   type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                   placeholder="peter@stark.com"
                   className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#a31515] focus:ring-1 focus:ring-[#a31515] transition-all"
                 />
@@ -161,15 +202,23 @@ export default function ContactSection() {
               <textarea
                 required
                 rows={4}
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
                 placeholder="Let's build something amazing together..."
                 className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#a31515] focus:ring-1 focus:ring-[#a31515] transition-all resize-none"
               />
             </div>
+            {error && (
+              <p className="text-sm text-[#a31515] font-medium text-center">
+                Something went wrong. Please try again in a moment.
+              </p>
+            )}
             <button
               type="submit"
-              className="w-full bg-[#a31515] hover:bg-[#7a0f0f] text-white py-3.5 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-[0_4px_15px_rgba(163,21,21,0.3)] hover:shadow-[0_6px_20px_rgba(163,21,21,0.5)] cursor-pointer mt-2"
+              disabled={sending}
+              className="w-full bg-[#a31515] hover:bg-[#7a0f0f] text-white py-3.5 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-[0_4px_15px_rgba(163,21,21,0.3)] hover:shadow-[0_6px_20px_rgba(163,21,21,0.5)] cursor-pointer mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Send Message
+              {sending ? "Sending..." : "Send Message"}
             </button>
           </form>
         )}
